@@ -274,6 +274,15 @@ class _ProcessDashboardState extends State<ProcessDashboard> {
   Widget _mobileView() {
     return Container(
       color: Colors.white,
+      child: const Center(
+        child: Text(
+          'Mobile view aun no soportada',
+          style: TextStyle(
+            fontSize: 16, // Ajusta el tamaño de la fuente según necesites
+            fontWeight: FontWeight.bold, color: Colors.black,
+          ),
+        ),
+      ),
     ); // Vista móvil como contenedor blanco
   }
 
