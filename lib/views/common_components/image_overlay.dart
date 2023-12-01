@@ -35,7 +35,7 @@ class ImageOverlayWidget extends StatelessWidget {
               )
             : Image.asset(
                 imagePath,
-                fit: BoxFit.cover,
+                fit: BoxFit.fitWidth,
               ),
         Container(
           color: Colors.black.withOpacity(0.3),

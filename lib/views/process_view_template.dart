@@ -1,7 +1,6 @@
 //"${process.processName} (${process.processNameInEnglish})"
 
 import 'package:flutter/material.dart';
-import 'package:glosario_manufactura/views/common_components/image_overlay.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../models/manufacturing_process_model.dart';
@@ -39,38 +38,43 @@ class ProcessViewTemplate extends StatelessWidget {
     return Row(
       children: [
         Expanded(
-          child: Stack(
-            children: [
-              ImageOverlayWidget.asset(
-                imagePath: process.illustration,
-              ),
-              Positioned(
-                top: 50,
-                left: 50,
-                child: Row(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(
+              horizontal: 32,
+              vertical: 16,
+            ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    GestureDetector(
-                      onTap: () => Navigator.pop(context),
-                      child: const Icon(
-                        Icons.keyboard_arrow_left,
-                        size: 36,
-                        weight: 70,
-                        color: Colors.white,
-                      ),
+                    Column(
+                      children: [
+                        GestureDetector(
+                          onTap: () => Navigator.pop(context),
+                          child: const Icon(
+                            Icons.keyboard_arrow_left,
+                            size: 36,
+                            weight: 70,
+                            color: Colors.black,
+                          ),
+                        ),
+                      ],
                     ),
                     const SizedBox(
                       width: 10,
                     ),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         Text(
                           "${process.processName}(${process.processNameInEnglish})",
                           style: const TextStyle(
                             fontSize: 36,
                             fontWeight: FontWeight.bold,
-                            color: Colors.white,
+                            color: Colors.black,
                           ),
                         ),
                         Text(
@@ -78,15 +82,71 @@ class ProcessViewTemplate extends StatelessWidget {
                           style: const TextStyle(
                             fontSize: 20,
                             fontWeight: FontWeight.bold,
-                            color: Colors.white,
+                            color: Colors.black,
+                          ),
+                        ),
+                        Positioned(
+                          left: 50,
+                          bottom: 50,
+                          child: GestureDetector(
+                            onTap: () => _launchURL(process.videoLink),
+                            child: Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(15),
+                                color: Colors.black, // Color de fondo negro
+                              ),
+                              padding: EdgeInsets.all(
+                                  10), // Espacio interno alrededor del contenido
+                              child: const Row(
+                                mainAxisSize: MainAxisSize
+                                    .min, // Tamaño principal mínimo para adaptarse al contenido
+                                children: [
+                                  Icon(
+                                    Icons
+                                        .play_circle_filled, // Icono de reproducción
+                                    color:
+                                        Colors.white, // Color del icono blanco
+                                  ),
+                                  SizedBox(
+                                      width:
+                                          5), // Espacio entre el ícono y el texto
+                                  Text(
+                                    "Ver Video",
+                                    style: TextStyle(
+                                      color: Colors
+                                          .white, // Color del texto blanco
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
                           ),
                         ),
                       ],
                     ),
                   ],
                 ),
-              ),
-            ],
+                Expanded(
+                  child: Center(
+                    child: Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(30),
+                        child: Image.asset(
+                          process.illustration,
+                          scale: 0.01,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                // Positioned(
+                //   top: 50,
+                //   left: 50,
+                //   child:
+                // ),
+              ],
+            ),
           ),
         ),
         Expanded(
@@ -94,7 +154,7 @@ class ProcessViewTemplate extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.all(64.0),
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   const Text(
                     "Concepto:",
@@ -210,9 +270,10 @@ class ProcessViewTemplate extends StatelessWidget {
     );
   }
 
-  void _launchURL(String url) async {
-    if (await canLaunch(url)) {
-      await launch(url);
+  Future<void> _launchURL(String url) async {
+    final Uri uri = Uri.parse(url);
+    if (await canLaunchUrl(uri)) {
+      await launchUrl(uri);
     } else {
       throw 'Could not launch $url';
     }

@@ -146,8 +146,9 @@ class _ProcessDashboardState extends State<ProcessDashboard> {
     return ListView.builder(
       itemCount: groupedProcesses.keys.length,
       itemBuilder: (context, index) {
-        var key = groupedProcesses.keys.elementAt(index);
-        var processList = groupedProcesses[key]!;
+        Classification classification = groupedProcesses.keys.elementAt(index);
+        String classificationKey = classificationToString(classification);
+        var processList = groupedProcesses[classification]!;
 
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -156,7 +157,7 @@ class _ProcessDashboardState extends State<ProcessDashboard> {
               padding:
                   const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
               child: Text(
-                key.toString(),
+                classificationKey, // Utiliza la clave de clasificación legible
                 style: TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
@@ -169,7 +170,8 @@ class _ProcessDashboardState extends State<ProcessDashboard> {
                       .toLowerCase()
                       .contains(_searchQuery.toLowerCase())) {
                 return MaterialListTile(
-                  title: process.processName,
+                  title:
+                      "${process.processName} (${process.processNameInEnglish})",
                   onTap: () {
                     Navigator.push(
                       context,
