@@ -20,6 +20,10 @@ class ProcessViewTemplate extends StatelessWidget {
     );
   }
 
+  //
+
+  //
+
   bool isDesktop(BuildContext context) {
     return MediaQuery.of(context).size.width > 600;
   }
@@ -35,58 +39,54 @@ class ProcessViewTemplate extends StatelessWidget {
     return Row(
       children: [
         Expanded(
-          child: Container(
-            // color: Colors.green,
-            child: Stack(
-              children: [
-                const ImageOverlayWidget.network(
-                  imagePath:
-                      "https://ferrosplanes.com/wp-content/uploads/2018/03/proceso-de-galvanizado-e1558625106137.jpg",
-                ),
-                Positioned(
-                  top: 50,
-                  left: 50,
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      GestureDetector(
-                        onTap: () => Navigator.pop(context),
-                        child: const Icon(
-                          Icons.keyboard_arrow_left,
-                          size: 36,
-                          weight: 70,
-                          color: Colors.white,
+          child: Stack(
+            children: [
+              ImageOverlayWidget.asset(
+                imagePath: process.illustration,
+              ),
+              Positioned(
+                top: 50,
+                left: 50,
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    GestureDetector(
+                      onTap: () => Navigator.pop(context),
+                      child: const Icon(
+                        Icons.keyboard_arrow_left,
+                        size: 36,
+                        weight: 70,
+                        color: Colors.white,
+                      ),
+                    ),
+                    const SizedBox(
+                      width: 10,
+                    ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "${process.processName}(${process.processNameInEnglish})",
+                          style: const TextStyle(
+                            fontSize: 36,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                          ),
                         ),
-                      ),
-                      const SizedBox(
-                        width: 10,
-                      ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            "${process.processName}(${process.processNameInEnglish})",
-                            style: const TextStyle(
-                              fontSize: 36,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white,
-                            ),
+                        Text(
+                          "Categoria: ${process.categories.join(",")}",
+                          style: const TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
                           ),
-                          Text(
-                            "Categoria: ${process.categories.join(",")}",
-                            style: const TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
+                        ),
+                      ],
+                    ),
+                  ],
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
         Expanded(

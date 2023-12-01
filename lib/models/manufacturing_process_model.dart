@@ -32,3 +32,26 @@ enum Classification {
   tratamientosTermicos,
   metalurgiaPolvos,
 }
+
+String classificationToString(Classification classification) {
+  switch (classification) {
+    case Classification.maquinado:
+      return 'Maquinado';
+    case Classification.formadoMecanico:
+      return 'Formado Mecánico';
+    case Classification.corte:
+      return 'Corte';
+    case Classification.fundicionMoldeoColado:
+      return 'Fundición, Moldeo y Colado';
+    case Classification.limpiezaYAcabado:
+      return 'Limpieza y Acabado';
+    case Classification.unionYEnsamble:
+      return 'Unión y Ensamble';
+    case Classification.tratamientosTermicos:
+      return 'Tratamientos Térmicos';
+    case Classification.metalurgiaPolvos:
+      return 'Metalurgia de Polvos';
+    default:
+      return 'Desconocido';
+  }
+}
