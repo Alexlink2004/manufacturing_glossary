@@ -196,7 +196,7 @@ class ProcessViewTemplate extends StatelessWidget {
                       ),
                     ],
                   ),
-                ],
+                ], //
               ),
             ),
           ),
