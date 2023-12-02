@@ -20,7 +20,7 @@ jobs:
 
       - run: flutter clean
       - run: flutter pub get
-      - run: flutter build web --release
+      - run: flutter build web --debug
 
       - run: |
           cd build
